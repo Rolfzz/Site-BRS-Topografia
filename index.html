@@ -476,7 +476,7 @@ footer{background:var(--navy);padding:60px 5% 32px}
         </div>
         <div class="ctc-row">
           <div class="ctc-ic"><i class="fa fa-envelope"></i></div>
-          <div><div class="ctc-h">E-mail</div><div class="ctc-v">contato@brstopografia.com.br</div></div>
+          <div><div class="ctc-h">E-mail</div><div class="ctc-v">Brs.topografia26@gmail.com</div></div>
         </div>
         <div class="ctc-row">
           <div class="ctc-ic"><i class="fa fa-location-dot"></i></div>
@@ -487,14 +487,14 @@ footer{background:var(--navy);padding:60px 5% 32px}
     <div class="ctc-form" data-aos="fade-left">
       <form onsubmit="handleForm(event)">
         <div class="f-row">
-          <div class="f-g"><label>Nome</label><input type="text" placeholder="Seu nome" required></div>
-          <div class="f-g"><label>Empresa</label><input type="text" placeholder="Nome da empresa"></div>
+          <div class="f-g"><label>Nome</label><input id="f-nome" type="text" placeholder="Seu nome" required></div>
+          <div class="f-g"><label>Empresa</label><input id="f-empresa" type="text" placeholder="Nome da empresa"></div>
         </div>
         <div class="f-row">
-          <div class="f-g"><label>Contato</label><input type="tel" placeholder="Telefone ou WhatsApp"></div>
+          <div class="f-g"><label>Contato</label><input id="f-contato" type="tel" placeholder="Telefone ou WhatsApp"></div>
           <div class="f-g">
             <label>Serviço</label>
-            <select>
+            <select id="f-servico">
               <option value="">Selecione o serviço</option>
               <option>Levantamento Topográfico</option>
               <option>Georreferenciamento</option>
@@ -506,7 +506,7 @@ footer{background:var(--navy);padding:60px 5% 32px}
             </select>
           </div>
         </div>
-        <div class="f-g"><label>Mensagem</label><textarea placeholder="Descreva brevemente o seu projeto ou necessidade..."></textarea></div>
+        <div class="f-g"><label>Mensagem</label><textarea id="f-msg" placeholder="Descreva brevemente o seu projeto ou necessidade..."></textarea></div>
         <button type="submit" class="f-btn"><i class="fa fa-paper-plane"></i> Enviar Solicitação</button>
       </form>
     </div>
@@ -542,7 +542,7 @@ footer{background:var(--navy);padding:60px 5% 32px}
       <h4>Contato</h4>
       <ul>
         <li><a href="https://wa.me/5516981244193">(16) 98124-4193</a></li>
-        <li><a href="mailto:contato@brstopografia.com.br">contato@brstopografia.com.br</a></li>
+        <li><a href="mailto:Brs.topografia26@gmail.com">Brs.topografia26@gmail.com</a></li>
         <li><a href="#contato">Solicitar Orçamento</a></li>
       </ul>
     </div>
@@ -663,8 +663,20 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')gMove(-1);if(e.ke
 
 function handleForm(e){
   e.preventDefault();
+  const nome=document.getElementById('f-nome').value.trim();
+  const empresa=document.getElementById('f-empresa').value.trim();
+  const contato=document.getElementById('f-contato').value.trim();
+  const servico=document.getElementById('f-servico').value;
+  const msg=document.getElementById('f-msg').value.trim();
+  let texto='*Solicitação de Orçamento — BRS Topografia*\n\n';
+  texto+='*Nome:* '+nome+'\n';
+  if(empresa) texto+='*Empresa:* '+empresa+'\n';
+  if(contato) texto+='*Contato:* '+contato+'\n';
+  if(servico) texto+='*Serviço:* '+servico+'\n';
+  if(msg) texto+='\n*Mensagem:*\n'+msg;
+  window.open('https://wa.me/5516981244193?text='+encodeURIComponent(texto),'_blank');
   const btn=e.target.querySelector('.f-btn');
-  btn.textContent='Enviado! Entraremos em contato.';
+  btn.innerHTML='<i class="fa fa-check"></i> Redirecionando para WhatsApp...';
   btn.style.background='#1a7a40';
   setTimeout(()=>{
     btn.innerHTML='<i class="fa fa-paper-plane"></i> Enviar Solicitação';
